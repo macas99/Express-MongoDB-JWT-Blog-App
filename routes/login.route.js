@@ -1,9 +1,9 @@
 const express = require('express');
 const router = express.Router({ mergeParams: true });
 
-const homeController = require('../controllers/home.controller');
+const loginController = require('../controllers/login.controller');
 
 router.route('/')
-    .get(homeController.getHomePage);
+    .get(loginController.getLoginPage);
 
 module.exports = router;

@@ -1,8 +1,8 @@
 
-const getIndex = function (req, res) {
+const getHomePage = function (req, res) {
     res.render('home');
 }
 
 module.exports = {
-    getIndex
+    getHomePage
 };
