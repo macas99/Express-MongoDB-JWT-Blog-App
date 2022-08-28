@@ -3,7 +3,10 @@ const router = express.Router({ mergeParams: true });
 
 const userController = require('../controllers/user.controller');
 
-router.route('/')
-    .get(userController.saveUser);
+router.route('/login')
+    .get(userController.getLoginPage);
+
+router.route('/signup')
+    .post(userController.saveUser);
 
 module.exports = router;

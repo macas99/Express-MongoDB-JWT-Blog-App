@@ -1,29 +1,19 @@
 const userService = require('../services/user.service');
 
-const getUserPage = function (req, res) {
-    res.render('user');
-}
-
 const saveUser = function (req, res) {
-    userService.saveUser().then(() => {
-        res.send("saved");
+    userService.saveUser(req.body.username, req.body.email, req.body.password).then((token) => {
+        res.json({accessToken: token});
     }).catch((error) => {
         console.log(error);
-        res.send("error");
+        res.send("Something went wrong");
     });
 }
 
-const findAll = function (req, res) {
-    userService.findAll().then((users) => {
-        res.send(users);
-    }).catch((error) => {
-        console.log(error);
-        res.send("error");
-    });
+const getLoginPage = function (req, res) {
+    res.render('login');
 }
 
 module.exports = {
-    getUserPage,
     saveUser,
-    findAll
+    getLoginPage
 };
