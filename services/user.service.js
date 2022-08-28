@@ -12,15 +12,34 @@ const saveUser = async function (name, email, password) {
     });
 
     const savedUser = await user.save();
-    const token = JsonWebToken.sign({id: savedUser._id, email: savedUser.email}, JWT_CODE);
+    const token = JsonWebToken.sign({ username: savedUser.name }, JWT_CODE);
     return token;
 }
 
-const findAll = async function() {
+const getUserByToken = async function (token) {
+    const decoded = JSON.stringify(JsonWebToken.verify(token, JWT_CODE));
+    const username = JSON.parse(decoded).username;
+    return await User.findOne({ name: username });
+}
+
+const verifyPassword = async function (username, password) {
+    const user = await User.findOne({ name: username });
+    return user ? Bcrypt.compareSync(password, user.password) : false;
+}
+
+const findAll = async function () {
     return await User.find();
+}
+
+const createUserToken = function (username) {
+    const token = JsonWebToken.sign({ username: username }, JWT_CODE);
+    return token;
 }
 
 module.exports = {
     saveUser,
-    findAll
+    getUserByToken,
+    verifyPassword,
+    findAll,
+    createUserToken
 };
