@@ -1,7 +1,7 @@
 const userService = require('../services/user.service');
 
 const getSignUpPage = function (req, res) {
-    res.render('home');
+    res.render('signup');
 }
 
 const getHomePage = function (req, res) {
