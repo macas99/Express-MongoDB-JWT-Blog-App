@@ -1,9 +1,31 @@
 body {
-  background-color: #198754;
+  background-color: #1FAB89;
+}
+
+h3 {
+  color: black;
 }
 
 a {
   text-decoration: none;
+}
+
+.navi {
+  background-color: #D7FBE8;
+}
+
+.material-symbols-outlined {
+  color: black;
+  font-variation-settings:
+    'FILL' 0,
+    'wght' 400,
+    'GRAD' 0,
+    'opsz' 48,
+}
+
+.btn-grn {
+  color: white;
+  background-color: #1FAB89;
 }
 
 .vertical-center {
@@ -26,7 +48,7 @@ a {
   border-top-right-radius: 0;
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
-  
+
 }
 
 .form-signin input[type="password"] {
@@ -37,4 +59,9 @@ a {
 
 .form-signin .form-floating:focus-within {
   z-index: 2;
+}
+
+.nav-title:hover,
+.material-symbols-outlined:hover {
+  color: #1FAB89;
 }

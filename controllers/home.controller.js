@@ -11,7 +11,7 @@ const getHomePage = function (req, res) {
     }
 
     userService.getUserByToken(token).then((user) => {
-        res.send(user);
+        res.render('home', {username: user.name})
     });
     
 }
