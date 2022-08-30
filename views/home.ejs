@@ -15,24 +15,65 @@
 </head>
 
 <body>
+    <div class="home">
 
-    <nav class="navbar navbar-light bg-light">
-        <div class="container container-fluid">
-            <h3 class="nav-title">BLOG</h3>
+        <!-- bg-light -->
+        <nav class="navbar navbar-light navi fixed-top">
+            <div class="container container-fluid">
+                <h3 class="nav-title">BLOG</h3>
 
-            <div class="d-flex">
-                <a class="nav-link" href="/home">
-                    <span class="material-symbols-outlined">home</span>
-                </a>
-                <a class="nav-link" href="/<%= username %>">
-                    <span class="material-symbols-outlined">person</span>
-                </a>
-                <a class="nav-link" href="/explore">
-                    <span class="material-symbols-outlined">search</span>
-                </a>
+                <div class="d-flex">
+                    <a class="nav-link" href="/home">
+                        <span class="material-symbols-outlined">home</span>
+                    </a>
+                    <a class="nav-link" href="/<%= username %>">
+                        <span class="material-symbols-outlined">person</span>
+                    </a>
+                    <a class="nav-link" href="/explore">
+                        <span class="material-symbols-outlined">search</span>
+                    </a>
+                </div>
             </div>
-        </div>
-    </nav>
+        </nav>
+
+        <%posts.forEach(function(post){%>
+            <div class="container mt-2 mb-4 col-md-6">
+                <div class="h-100 p-5 pb-2 bg-light border rounded-3 content">
+                    <div class="container d-flex p-0 mb-1 post-info">
+                        <div class="col-6">
+                            <p class="mb-0">
+                                By <%= post.author %>
+                            </p>
+                        </div>
+                        <div class="col-6 text-end">
+                            <p class="mb-0">
+                                <%= post.date %>
+                            </p>
+                        </div>
+                    </div>
+                    <h2>
+                        <%= post.title %>
+                    </h2>
+                    <p>
+                        <%= post.body.substring(0, 280) + " ..." %>
+                    </p>
+                    <div class="justify-content-end d-flex">
+                        <div class="col-2">
+                            <p class="text-end pe-1">
+                                <%= post.likes %>
+                            </p>
+                        </div>
+                        <div class="col-1">
+                            <span class="material-symbols-outlined">
+                                favorite
+                            </span>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <%});%>
+    </div>
 </body>
 
 </html>

@@ -13,11 +13,11 @@ const getHomePage = function (req, res) {
 
     userService.getUserByToken(token).then((user) => {
         postService.getPostsByFollowing(user.following).then((posts) => {
-            console.log(posts);
+            res.render('home', {username: user.name, posts: posts});
         }).catch((err) => {
             console.log(err);
         });
-        res.render('home', {username: user.name});
+        // res.render('home', {username: user.name});
     });
     
 }
