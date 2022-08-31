@@ -9,4 +9,7 @@ router.route('/')
 router.route('/home')
     .get(homeController.getHomePage);
 
+router.route('/home')
+    .post(homeController.updateLikes);
+
 module.exports = router;

@@ -14,10 +14,20 @@ $('.heart').on('click', function () {
 
 function addLike(element) {
     const likes = $(element).text().trim();
-    $(element).text(parseInt(likes) + 1); 
+    $(element).text(parseInt(likes) + 1);
 }
 
 function removeLike(element) {
     const likes = $(element).text().trim();
-    $(element).text(parseInt(likes) - 1); 
+    $(element).text(parseInt(likes) - 1);
+}
+
+function updateLikes(username, post) {
+    $.post("/home", { name: username, post: post })
+        .done(function (data) {
+            console.log(data);
+        }).fail(function () {
+            console.log("error");
+        });
+    console.log(username, post);
 }

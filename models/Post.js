@@ -29,7 +29,8 @@ const postSchema = new Schema({
     body: { type: String, trim: true, required: true },
     date: { type: String, default: getDate() },
     time: { type: String, default: getTime() },
-    likes: { type: Number, default: 0 }
+    likes: { type: Number, default: 0 },
+    likedBy: [String]
 })
 
 module.exports = mongoose.model('post', postSchema);

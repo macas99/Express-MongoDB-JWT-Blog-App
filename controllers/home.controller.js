@@ -22,7 +22,15 @@ const getHomePage = function (req, res) {
     
 }
 
+const updateLikes = function (req,res) {
+    const username = req.body.name;
+    const post = req.body.post;
+    console.log(username, post);
+    return res.sendStatus(200);
+}
+
 module.exports = {
     getSignUpPage,
-    getHomePage
+    getHomePage,
+    updateLikes
 };
