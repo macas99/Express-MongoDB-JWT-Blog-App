@@ -13,20 +13,25 @@ const getHomePage = function (req, res) {
 
     userService.getUserByToken(token).then((user) => {
         postService.getPostsByFollowing(user.following).then((posts) => {
-            res.render('home', {username: user.name, posts: posts});
+            res.render('home', { username: user.name, posts: posts });
         }).catch((err) => {
             console.log(err);
         });
         // res.render('home', {username: user.name});
     });
-    
+
 }
 
-const updateLikes = function (req,res) {
+const updateLikes = function (req, res) {
     const username = req.body.name;
     const post = req.body.post;
-    console.log(username, post);
-    return res.sendStatus(200);
+    const remove = req.body.removeLike; //boolean
+    postService.updateLikes(username, post, remove).then(() => {
+        return res.sendStatus(200);
+    }).catch((err) => {
+        console.log(err);
+        return res.sendStatus(500);
+    });
 }
 
 module.exports = {

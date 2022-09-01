@@ -19,6 +19,19 @@ const stringToDate = function (date, time) {
     return dateObject;
 }
 
+const updateLikes = async function (user, post, remove) {
+    return await remove ? removeLike(user, post) : addLike(user, post);
+}
+
+const addLike = async function (user, post) {
+    return await Post.updateOne({ _id: post }, { $push: { likedBy: user } });
+}
+
+const removeLike = async function (user, post) {
+    return await Post.updateOne({ _id: post }, { $pull: { likedBy: user } });
+}
+
 module.exports = {
-    getPostsByFollowing
+    getPostsByFollowing,
+    updateLikes
 };
