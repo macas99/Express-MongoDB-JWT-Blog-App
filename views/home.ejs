@@ -64,10 +64,17 @@
                             </p>
                         </div>
                         <div class="col-1">
-                            <span class="material-symbols-outlined heart off prevent-select"
-                                onclick="updateLikes('<%= username %>', '<%= post.id%>')">
-                                favorite
-                            </span>
+                            <% if(post.likedBy.includes(username)){ %>
+                                <span id="<%= post.id %>" class="material-symbols-outlined heart prevent-select on"
+                                    style="color: red;" onclick="updateLikes('<%= username %>', '<%= post.id%>')">
+                                    favorite
+                                </span>
+                            <% } else { %>
+                                <span id="<%= post.id %>" class="material-symbols-outlined heart prevent-select off"
+                                    onclick="updateLikes('<%= username %>', '<%= post.id%>')">
+                                    favorite
+                                </span>
+                            <% } %>
                         </div>
 
                     </div>

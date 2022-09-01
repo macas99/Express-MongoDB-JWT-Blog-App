@@ -24,11 +24,11 @@ const updateLikes = async function (user, post, remove) {
 }
 
 const addLike = async function (user, post) {
-    return await Post.updateOne({ _id: post }, { $push: { likedBy: user } });
+    return await Post.updateOne({ _id: post }, { $push: { likedBy: user }, $inc: { likes: 1 } });
 }
 
 const removeLike = async function (user, post) {
-    return await Post.updateOne({ _id: post }, { $pull: { likedBy: user } });
+    return await Post.updateOne({ _id: post }, { $pull: { likedBy: user }, $inc: { likes: -1 } });
 }
 
 module.exports = {

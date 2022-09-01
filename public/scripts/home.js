@@ -23,8 +23,7 @@ function removeLike(element) {
 }
 
 function updateLikes(username, post) {
-    const removeLike = $('.heart').hasClass('on');
-
+    const removeLike = $('#' + post).hasClass('on');
     $.post("/home", { name: username, post: post, removeLike: removeLike ? 1 : null })
         .done(function (data) {
             console.log(data);
