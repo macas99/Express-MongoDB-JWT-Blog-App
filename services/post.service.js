@@ -5,6 +5,11 @@ const getPostsByFollowing = async function (userArray) {
     return sortByDate(posts);
 }
 
+const getPostsByAuthor = async function (author) {
+    const posts = await Post.find({ author: author });
+    return sortByDate(posts);
+}
+
 const sortByDate = function (posts) {
     posts.sort(function (a, b) {
         return stringToDate(b.date, b.time) - stringToDate(a.date, a.time);
@@ -38,5 +43,6 @@ const removeLike = async function (user, post) {
 module.exports = {
     getPostsByFollowing,
     updateLikes,
-    getById
+    getById,
+    getPostsByAuthor
 };

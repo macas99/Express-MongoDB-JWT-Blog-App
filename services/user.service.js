@@ -36,10 +36,15 @@ const createUserToken = function (username) {
     return token;
 }
 
+const getUserByName = async function (username) {
+    return await User.findOne({ name: username });
+}
+
 module.exports = {
     saveUser,
     getUserByToken,
     verifyPassword,
     findAll,
-    createUserToken
+    createUserToken,
+    getUserByName
 };

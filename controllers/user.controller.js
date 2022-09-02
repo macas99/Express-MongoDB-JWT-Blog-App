@@ -1,4 +1,5 @@
 const userService = require('../services/user.service');
+const postService = require('../services/post.service');
 
 const saveUser = function (req, res) {
     userService.saveUser(req.body.username, req.body.email, req.body.password).then((token) => {
@@ -33,7 +34,13 @@ const login = function (req, res) {
 
 const loadProfile = function (req, res) {
     const username = req.params.user;
-    res.send(username);
+    userService.getUserByName(username).then((user) => {
+        postService.getPostsByAuthor(username).then((posts) => {
+            res.render('profile', {user: user, posts: posts});
+        });
+    }).catch((err) => {
+        res.redirect('/home');
+    })
 }
 
 module.exports = {
