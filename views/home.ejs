@@ -52,10 +52,14 @@
                         </div>
                     </div>
                     <h2>
-                        <%= post.title %>
+                        <a class="link-content" href="/posts/<%= post._id %>">
+                            <%= post.title %>
+                        </a>
                     </h2>
                     <p>
-                        <%= post.body.substring(0, 280) + " ..." %>
+                        <a class="link-content" href="/posts/<%= post._id %>">
+                            <%= post.body.substring(0, 280) + " ..." %>
+                        </a> 
                     </p>
                     <div class="justify-content-end d-flex">
                         <div class="col-2">
