@@ -31,8 +31,14 @@ const login = function (req, res) {
     });
 }
 
+const loadProfile = function (req, res) {
+    const username = req.params.user;
+    res.send(username);
+}
+
 module.exports = {
     saveUser,
     getLoginPage,
-    login
+    login,
+    loadProfile
 };

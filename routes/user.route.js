@@ -12,4 +12,7 @@ router.route('/login')
 router.route('/signup')
     .post(userController.saveUser);
 
+router.route('/:user')
+    .get(userController.loadProfile);
+
 module.exports = router;
