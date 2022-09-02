@@ -19,6 +19,10 @@ const stringToDate = function (date, time) {
     return dateObject;
 }
 
+const getById = async function (id) {
+    return await Post.findById(id);
+}
+
 const updateLikes = async function (user, post, remove) {
     return await remove ? removeLike(user, post) : addLike(user, post);
 }
@@ -33,5 +37,6 @@ const removeLike = async function (user, post) {
 
 module.exports = {
     getPostsByFollowing,
-    updateLikes
+    updateLikes,
+    getById
 };
