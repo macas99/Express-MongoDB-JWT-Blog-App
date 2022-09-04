@@ -51,9 +51,18 @@ const loadProfile = function (req, res) {
     })
 }
 
+const updateFollow = function (req, res) {
+    const username = req.body.name;
+    const profile = req.body.profile;
+    const follow = req.body.follow;
+    console.log("Start following: " + follow);
+    return res.sendStatus(200);
+}
+
 module.exports = {
     saveUser,
     getLoginPage,
     login,
-    loadProfile
+    loadProfile,
+    updateFollow
 };

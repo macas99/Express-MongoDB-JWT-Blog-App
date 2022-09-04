@@ -15,4 +15,7 @@ router.route('/signup')
 router.route('/:user')
     .get(userController.loadProfile);
 
+router.route('')
+    .post(userController.updateFollow);
+
 module.exports = router;

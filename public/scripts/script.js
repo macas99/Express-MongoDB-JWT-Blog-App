@@ -32,8 +32,15 @@ function updateLikes(username, post) {
         });
 }
 
-function updateFollow() {
-    console.log("updating likes");
+function updateFollow(user, profile) {
+    const follow = $('.follow').hasClass('on');
+    console.log("ON TAG:" + follow);
+    $.post("/user", { name: user, profile: profile, follow: follow })
+        .done(function (data) {
+            console.log(data);
+        }).fail(function () {
+            console.log("error");
+        });
 }
 
 $('.follow').on('click', function () {
@@ -41,7 +48,7 @@ $('.follow').on('click', function () {
         $(this).removeClass('off btn-dark');
         $(this).addClass('on btn-success');
         $(this).text('Follow');
-        
+
     } else {
         $(this).removeClass('on btn-success');
         $(this).addClass('off btn-dark');
