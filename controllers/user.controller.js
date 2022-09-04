@@ -33,10 +33,18 @@ const login = function (req, res) {
 }
 
 const loadProfile = function (req, res) {
+    const token = req.cookies.token;
+
     const username = req.params.user;
-    userService.getUserByName(username).then((user) => {
+    userService.getUserByName(username).then((profile) => {
         postService.getPostsByAuthor(username).then((posts) => {
-            res.render('profile', {user: user, posts: posts});
+            if (token) {
+                userService.getUserByToken(token).then((user) => {
+                    res.render('profile', { profile: profile, posts: posts, user: user });
+                });
+            } else {
+                res.render('profile', { profile: profile, posts: posts, user: false });
+            }
         });
     }).catch((err) => {
         res.redirect('/home');

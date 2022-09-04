@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>
-        <%=user.name%>
+        <%=profile.name%>
     </title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -21,35 +21,56 @@
         <nav class="navbar navbar-light navi fixed-top">
             <div class="container container-fluid">
                 <h3 class="nav-title"> <a href="/home" class="link-content">BLOG</a></h3>
-
-                <div class="d-flex">
-                    <a class="nav-link" href="/home">
-                        <span class="material-symbols-outlined">home</span>
-                    </a>
-                    <a class="nav-link" href="/user/<%= user.name %>">
-                        <span class="material-symbols-outlined">person</span>
-                    </a>
-                    <a class="nav-link" href="/explore">
-                        <span class="material-symbols-outlined">search</span>
-                    </a>
-                </div>
+                <% if (user){ %>
+                    <div class="d-flex">
+                        <a class="nav-link" href="/home">
+                            <span class="material-symbols-outlined">home</span>
+                        </a>
+                        <a class="nav-link" href="/user/<%= user.name %>">
+                            <span class="material-symbols-outlined">person</span>
+                        </a>
+                        <a class="nav-link" href="/explore">
+                            <span class="material-symbols-outlined">search</span>
+                        </a>
+                    </div>
+                <% } %>  
             </div>
         </nav>
 
             <div class="container mt-2 mb-4 col-md-6">
                 <div class="h-100 p-5 pb-2 pt-2 bg-light border rounded-3 content">
-                    <h2>
-                            <%= user.name %>
-                    </h2>
+
+                    <% if (!user){ %>
+                        <h2>
+                                <%= profile.name %>
+                        </h2>
+                    <% } else { %>  
+                        <div class="container d-flex p-0 post-info">
+                            <div class="col-6">
+                                <h2>
+                                    <%= profile.name %>
+                            </h2>
+                            </div>
+                            <div class="col-6 text-end">
+                                <% if (profile.followers.includes(user.name)) { %> 
+                                    <button type="button" class="mt-1 btn btn-dark rounded-pill follow off" onclick="updateFollow()">Unfollow</button>
+                                <% }else { %> 
+                                    <button type="button" class="mt-1 btn btn-success rounded-pill follow on" onclick="updateFollow()">Follow</button>
+                                <% } %> 
+                            </div>
+                        </div>
+                    <% } %> 
+
+
                     <div class="container d-flex p-0 mb-1 post-info">
                         <div class="col-2">
                             <p class="mb-0">
-                                <%= user.followers.length %> Followers
+                                <%= profile.followers.length %> Followers
                             </p>
                         </div>
                         <div class="col-2">
                             <p class="mb-0">
-                                <%= user.following.length %> Following
+                                <%= profile.following.length %> Following
                             </p>
                         </div>
                     </div>
@@ -62,8 +83,9 @@
                     <%});%>
                 </div>
             </div>
-
     </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="/scripts/script.js" charset="utf-8"></script>
 </body>
 
 </html>

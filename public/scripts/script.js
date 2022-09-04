@@ -31,3 +31,20 @@ function updateLikes(username, post) {
             console.log("error");
         });
 }
+
+function updateFollow() {
+    console.log("updating likes");
+}
+
+$('.follow').on('click', function () {
+    if ($(this).hasClass('off')) {
+        $(this).removeClass('off btn-dark');
+        $(this).addClass('on btn-success');
+        $(this).text('Follow');
+        
+    } else {
+        $(this).removeClass('on btn-success');
+        $(this).addClass('off btn-dark');
+        $(this).text('Unfollow');
+    }
+});
