@@ -40,11 +40,24 @@ const getUserByName = async function (username) {
     return await User.findOne({ name: username });
 }
 
+const updateFollow = async function (user, profile, follow) {
+    return await follow ? addFollow(user, profile) : deleteFollow(user, profile);
+}
+
+const addFollow = async function (user, profile) {
+    return await User.updateOne({ name: profile }, { $push: { followers: user } });
+}
+
+const deleteFollow = async function (user, profile) {
+    return await User.updateOne({ name: profile }, { $pull: { followers: user } });
+}
+
 module.exports = {
     saveUser,
     getUserByToken,
     verifyPassword,
     findAll,
     createUserToken,
-    getUserByName
+    getUserByName,
+    updateFollow
 };

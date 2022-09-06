@@ -55,8 +55,12 @@ const updateFollow = function (req, res) {
     const username = req.body.name;
     const profile = req.body.profile;
     const follow = req.body.follow;
-    console.log("Start following: " + follow);
-    return res.sendStatus(200);
+    userService.updateFollow(username, profile, follow).then(() => {
+        return res.sendStatus(200);
+    }).catch(() => {
+        return res.sendStatus(500);
+    });
+
 }
 
 module.exports = {

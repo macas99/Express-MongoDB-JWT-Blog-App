@@ -35,7 +35,7 @@ function updateLikes(username, post) {
 function updateFollow(user, profile) {
     const follow = $('.follow').hasClass('on');
     console.log("ON TAG:" + follow);
-    $.post("/user", { name: user, profile: profile, follow: follow })
+    $.post("/user", { name: user, profile: profile, follow: follow ? 1 : null })
         .done(function (data) {
             console.log(data);
         }).fail(function () {
