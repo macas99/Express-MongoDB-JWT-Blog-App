@@ -52,6 +52,11 @@ const loadProfile = function (req, res) {
 }
 
 const updateFollow = function (req, res) {
+    const token = req.cookies.token;
+    if (!token) {
+        return res.redirect('/user/login');
+    }
+    
     const username = req.body.name;
     const profile = req.body.profile;
     const follow = req.body.follow;
