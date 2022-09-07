@@ -31,7 +31,22 @@ const updateLikes = function (req, res) {
     });
 }
 
+const getCreatePost = function (req, res) {
+    const token = req.cookies.token;
+    if (!token) {
+        return res.redirect('/user/login');
+    }
+
+    userService.getUserByToken(token).then((user) => {
+        res.render('create', {username: user.name});
+    }).catch((err) => {
+        res.redirect('/home');
+    })
+}
+
+
 module.exports = {
     getPost,
-    updateLikes
+    updateLikes,
+    getCreatePost
 };
