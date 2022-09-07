@@ -21,21 +21,8 @@ const getHomePage = function (req, res) {
     });
 
 }
-//move to post controller
-const updateLikes = function (req, res) {
-    const username = req.body.name;
-    const post = req.body.post;
-    const remove = req.body.removeLike;
-    postService.updateLikes(username, post, remove).then(() => {
-        return res.sendStatus(200);
-    }).catch((err) => {
-        console.log(err);
-        return res.sendStatus(500);
-    });
-}
 
 module.exports = {
     getSignUpPage,
-    getHomePage,
-    updateLikes
+    getHomePage
 };

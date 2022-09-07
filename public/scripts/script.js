@@ -45,7 +45,7 @@ function reduceNum(element) {
 //update DB on like
 function updateLikes(username, post) {
     const removeLike = $('#' + post).hasClass('on');
-    $.post("/home", { name: username, post: post, removeLike: removeLike ? 1 : null })
+    $.post("/posts/like", { name: username, post: post, removeLike: removeLike ? 1 : null })
         .done(function (data) {
             console.log(data);
         }).fail(function () {
