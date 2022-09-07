@@ -55,6 +55,13 @@ a {
   align-items: center;
 }
 
+.btn:focus,
+.btn:active:focus,
+.btn.active:focus {
+  outline: none;
+  box-shadow: none;
+}
+
 .prevent-select {
   -webkit-user-select: none;
   -ms-user-select: none;
