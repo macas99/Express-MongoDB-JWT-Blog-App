@@ -9,6 +9,9 @@ router.route('/create')
 router.route('/:postId')
     .get(postController.getPost);
 
+router.route('/create')
+    .post(postController.createPost);
+
 router.route('/like')
     .post(postController.updateLikes);
 

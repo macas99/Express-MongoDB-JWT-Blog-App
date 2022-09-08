@@ -38,15 +38,19 @@ const getCreatePost = function (req, res) {
     }
 
     userService.getUserByToken(token).then((user) => {
-        res.render('create', {username: user.name});
+        res.render('create', { username: user.name });
     }).catch((err) => {
         res.redirect('/home');
     })
 }
 
+const createPost = function (req, res) {
+    res.send("in function");
+}
 
 module.exports = {
     getPost,
     updateLikes,
-    getCreatePost
+    getCreatePost,
+    createPost
 };
