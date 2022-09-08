@@ -13,7 +13,6 @@
 </head>
 
 <body>
-  <div class="home">
 
     <!-- bg-light -->
     <nav class="navbar navbar-light navi fixed-top">
@@ -33,7 +32,25 @@
         </div>
       </div>
     </nav>
-  </div>
+
+
+    
+    <div class="d-flex justify-content-center vertical-center">
+      <div class="col-12 col-lg-6 col-md-8 col-sm-11 ">
+        <div class="h-100 p-5 pt-4 pb-4 bg-light border rounded-3">
+          <form action="/create" method="post">
+            <div class="form-group">
+              <label class="form-label">Title</label><br>
+              <input class="form-control" type="text" name="postTitle"><br>
+              <label class="form-label">Post</label><br>
+              <textarea class="form-control" name="postBody" cols="30" rows="10"></textarea><br>
+              <button class="btn btn-primary" type="submit" name="button">Publish</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
 </body>
 
 </html>
