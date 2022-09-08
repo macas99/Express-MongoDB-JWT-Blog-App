@@ -40,9 +40,19 @@ const removeLike = async function (user, post) {
     return await Post.updateOne({ _id: post }, { $pull: { likedBy: user }, $inc: { likes: -1 } });
 }
 
+const savePost = async function (title, body, author) {
+    const post = new Post({
+        title: title,
+        author: author,
+        body: body
+    });
+    return await post.save();
+}
+
 module.exports = {
     getPostsByFollowing,
     updateLikes,
     getById,
-    getPostsByAuthor
+    getPostsByAuthor,
+    savePost
 };

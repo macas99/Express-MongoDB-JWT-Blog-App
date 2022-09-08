@@ -39,13 +39,28 @@ const getCreatePost = function (req, res) {
 
     userService.getUserByToken(token).then((user) => {
         res.render('create', { username: user.name });
-    }).catch((err) => {
+    }).catch(() => {
         res.redirect('/home');
     })
 }
 
 const createPost = function (req, res) {
-    res.send("in function");
+    const token = req.cookies.token;
+    if (!token) {
+        return res.redirect('/home');
+    }
+
+    const title = req.body.postTitle;
+    const postBody = req.body.postBody;
+    const author = req.body.username;
+
+    postService.savePost(title, postBody, author).then((post) => {
+        const id = post._id;
+        res.redirect('/posts/' + id);
+    }).catch((err) => {
+        console.log(err);
+        res.redirect('/home');
+    });
 }
 
 module.exports = {

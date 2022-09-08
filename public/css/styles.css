@@ -10,7 +10,8 @@ a {
   text-decoration: none;
 }
 
-.home {
+.home,
+.mt-10 {
   padding-top: 4.5rem;
 }
 

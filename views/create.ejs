@@ -14,42 +14,43 @@
 
 <body>
 
-    <!-- bg-light -->
-    <nav class="navbar navbar-light navi fixed-top">
-      <div class="container container-fluid">
-        <h3 class="nav-title"> <a href="/home" class="link-content">BLOG</a></h3>
+  <!-- bg-light -->
+  <nav class="navbar navbar-light navi fixed-top">
+    <div class="container container-fluid">
+      <h3 class="nav-title"> <a href="/home" class="link-content">BLOG</a></h3>
 
-        <div class="d-flex">
-          <a class="nav-link" href="/home">
-            <span class="material-symbols-outlined">home</span>
-          </a>
-          <a class="nav-link" href="/user/<%= username %>">
-            <span class="material-symbols-outlined">person</span>
-          </a>
-          <a class="nav-link" href="/explore">
-            <span class="material-symbols-outlined">search</span>
-          </a>
-        </div>
-      </div>
-    </nav>
-
-
-    
-    <div class="d-flex justify-content-center vertical-center">
-      <div class="col-12 col-lg-6 col-md-8 col-sm-11 ">
-        <div class="h-100 p-5 pt-4 pb-4 bg-light border rounded-3">
-          <form action="/posts/create" method="post">
-            <div class="form-group">
-              <label class="form-label">Title</label><br>
-              <input class="form-control" type="text" name="postTitle"><br>
-              <label class="form-label">Post</label><br>
-              <textarea class="form-control" name="postBody" cols="30" rows="10"></textarea><br>
-              <button class="btn btn-primary" type="submit" name="button">Publish</button>
-            </div>
-          </form>
-        </div>
+      <div class="d-flex">
+        <a class="nav-link" href="/home">
+          <span class="material-symbols-outlined">home</span>
+        </a>
+        <a class="nav-link" href="/user/<%= username %>">
+          <span class="material-symbols-outlined">person</span>
+        </a>
+        <a class="nav-link" href="/explore">
+          <span class="material-symbols-outlined">search</span>
+        </a>
       </div>
     </div>
+  </nav>
+
+
+
+  <div class="d-flex justify-content-center vertical-center mt-10">
+    <div class="col-12 col-lg-6 col-md-8 col-sm-11 ">
+      <div class="h-100 p-5 pt-4 pb-4 bg-light border rounded-3">
+        <form action="/posts/create" method="post">
+          <div class="form-group">
+            <label class="form-label">Title</label><br>
+            <input class="form-control" type="text" name="postTitle"><br>
+            <label class="form-label">Post</label><br>
+            <textarea class="form-control" name="postBody" cols="30" rows="10"></textarea><br>
+            <input class="form-control" type="text" name="username" value="<%= username %>" hidden>
+            <button class="btn btn-primary" type="submit" name="button">Publish</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
 
 </body>
 
