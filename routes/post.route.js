@@ -12,6 +12,9 @@ router.route('/:postId')
 router.route('/edit/:postId')
     .get(postController.getEdit);
 
+router.route('/update/:postId')
+    .post(postController.updatePost);
+
 router.route('/create')
     .post(postController.createPost);
 

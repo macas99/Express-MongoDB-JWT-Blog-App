@@ -64,7 +64,28 @@ const createPost = function (req, res) {
 }
 
 const getEdit = function (req, res) {
-    res.send("EDIT");
+    const token = req.cookies.token;
+    const postId = req.params.postId;
+
+    if (!token) {
+        return res.redirect('/user/login');
+    }
+
+    userService.getUserByToken(token).then((user) => {
+        postService.getById(postId).then((post) => {
+            if (user.name != post.author) {
+                res.redirect('/user/login');
+            } else {
+                res.render('edit', { post: post, username: user.name });
+            }
+        });
+    }).catch(() => {
+        res.redirect('/home');
+    })
+}
+
+const updatePost = function (req, res) {
+    res.send("LOL");
 }
 
 module.exports = {
@@ -72,5 +93,6 @@ module.exports = {
     updateLikes,
     getCreatePost,
     createPost,
-    getEdit
+    getEdit,
+    updatePost
 };
