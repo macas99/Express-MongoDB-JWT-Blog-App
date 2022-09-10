@@ -15,6 +15,9 @@ router.route('/edit/:postId')
 router.route('/update/:postId')
     .post(postController.updatePost);
 
+router.route('/delete/:postId')
+    .post(postController.deletePost);
+
 router.route('/create')
     .post(postController.createPost);
 

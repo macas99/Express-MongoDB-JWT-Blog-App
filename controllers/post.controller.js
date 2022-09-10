@@ -109,11 +109,16 @@ const updatePost = function (req, res) {
     })
 }
 
+const deletePost = function (req, res) {
+    res.send("DELETE");
+}
+
 module.exports = {
     getPost,
     updateLikes,
     getCreatePost,
     createPost,
     getEdit,
-    updatePost
+    updatePost,
+    deletePost
 };
