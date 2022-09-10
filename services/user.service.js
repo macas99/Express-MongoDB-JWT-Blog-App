@@ -44,12 +44,28 @@ const updateFollow = async function (user, profile, follow) {
     return await follow ? addFollow(user, profile) : deleteFollow(user, profile);
 }
 
+//add new follower to account
 const addFollow = async function (user, profile) {
-    return await User.updateOne({ name: profile }, { $push: { followers: user } });
+    User.updateOne({ name: profile }, { $push: { followers: user } }).then(() => {
+        addToFollowing(user, profile);
+    });
 }
 
+//add account to following list of user
+const addToFollowing = async function (user, profile) {
+    return await User.updateOne({ name: user }, { $push: { following: profile } });
+}
+
+//delete follower from account
 const deleteFollow = async function (user, profile) {
-    return await User.updateOne({ name: profile }, { $pull: { followers: user } });
+    User.updateOne({ name: profile }, { $pull: { followers: user } }).then(() => {
+        deleteFromFollowing(user, profile)
+    });
+}
+
+//remove account from following list of user 
+const deleteFromFollowing = async function (user, profile) {
+    return await User.updateOne({ name: user }, { $pull: { following: profile } });
 }
 
 module.exports = {
