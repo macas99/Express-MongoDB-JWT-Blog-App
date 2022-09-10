@@ -74,6 +74,15 @@
         </div>
       </div>
     </div>
+
+    <% if(username === post.author) {%>
+    <div class="container mt-2 mb-4 col-md-6">
+      <div class="d-grid gap-2 d-block">
+        <a href="/posts/edit/<%= post._id %> " class="btn btn-success">Edit</a>
+      </div>
+    </div>
+    <%}%>
+
   </div>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
   <script src="/scripts/script.js" charset="utf-8"></script>

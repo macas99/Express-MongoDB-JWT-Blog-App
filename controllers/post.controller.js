@@ -63,9 +63,14 @@ const createPost = function (req, res) {
     });
 }
 
+const getEdit = function (req, res) {
+    res.send("EDIT");
+}
+
 module.exports = {
     getPost,
     updateLikes,
     getCreatePost,
-    createPost
+    createPost,
+    getEdit
 };

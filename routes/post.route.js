@@ -9,6 +9,9 @@ router.route('/create')
 router.route('/:postId')
     .get(postController.getPost);
 
+router.route('/edit/:postId')
+    .get(postController.getEdit);
+
 router.route('/create')
     .post(postController.createPost);
 
