@@ -53,11 +53,16 @@ const updatePost = async function (id, title, body) {
     return await Post.updateOne({ _id: id }, { $set: { title: title, body: body } });
 }
 
+const deletePost = async function (id) {
+    return await Post.deleteOne({ _id: id });
+}
+
 module.exports = {
     getPostsByFollowing,
     updateLikes,
     getById,
     getPostsByAuthor,
     savePost,
-    updatePost
+    updatePost,
+    deletePost
 };

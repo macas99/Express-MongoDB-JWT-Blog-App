@@ -72,6 +72,7 @@
           <div class="modal-footer">
             <button type="button" class="btn btn-light border-dark" data-bs-dismiss="modal">Cancel</button>
             <form action="/posts/delete/<%= post._id %>" method="post">
+              <input class="form-control" type="text" name="username" value="<%= username %>" hidden>
               <button type="submit" class="btn btn-danger">Delete</button>
             </form>
           </div>

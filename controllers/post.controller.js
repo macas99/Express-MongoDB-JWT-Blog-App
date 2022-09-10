@@ -110,7 +110,26 @@ const updatePost = function (req, res) {
 }
 
 const deletePost = function (req, res) {
-    res.send("DELETE");
+    const token = req.cookies.token;
+
+    if (!token) {
+        return res.redirect('/user/login');
+    }
+
+    const postId = req.params.postId;
+    const author = req.body.username;
+
+    userService.getUserByToken(token).then((user) => {
+        if (user.name === author) {
+            postService.deletePost(postId).then(() => {
+                res.redirect('/user/' + user.name);
+            })
+        } else {
+            res.redirect(403, '/home');
+        }
+    }).catch(() => {
+        res.redirect(500, '/home');
+    })
 }
 
 module.exports = {
