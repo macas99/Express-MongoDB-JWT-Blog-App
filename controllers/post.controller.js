@@ -85,7 +85,28 @@ const getEdit = function (req, res) {
 }
 
 const updatePost = function (req, res) {
-    res.send("LOL");
+    const token = req.cookies.token;
+
+    if (!token) {
+        return res.redirect('/user/login');
+    }
+
+    const postId = req.params.postId;
+    const title = req.body.postTitle;
+    const postBody = req.body.postBody;
+    const author = req.body.username;
+
+    userService.getUserByToken(token).then((user) => {
+        if (user.name === author) {
+            postService.updatePost(postId, title, postBody).then(() => {
+                res.redirect('/posts/' + postId);
+            });
+        } else {
+            res.redirect(403, '/home');
+        }
+    }).catch(() => {
+        res.redirect(500, '/home');
+    })
 }
 
 module.exports = {

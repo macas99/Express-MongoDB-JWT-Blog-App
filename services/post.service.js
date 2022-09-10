@@ -49,10 +49,15 @@ const savePost = async function (title, body, author) {
     return await post.save();
 }
 
+const updatePost = async function (id, title, body) {
+    return await Post.updateOne({ _id: id }, { $set: { title: title, body: body } });
+}
+
 module.exports = {
     getPostsByFollowing,
     updateLikes,
     getById,
     getPostsByAuthor,
-    savePost
+    savePost,
+    updatePost
 };
