@@ -75,7 +75,13 @@ const searchUser = async function (query) {
 
 //unfollow all - used when account is deleted
 const unfollowAll = async function (user) {
-    return await User.updateMany({}, { $pull: { followers: user } });
+    User.updateMany({}, { $pull: { followers: user } }).then(() => {
+        removeFollowing(user);
+    });
+}
+
+const removeFollowing = async function (user) {
+    return await User.updateMany({}, { $pull: { following: user } });
 }
 
 const deleteUser = async function (user) {
