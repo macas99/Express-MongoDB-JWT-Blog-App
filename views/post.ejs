@@ -15,23 +15,7 @@
 <body>
   <div class="home">
 
-    <nav class="navbar navbar-light navi fixed-top">
-      <div class="container container-fluid">
-        <h3 class="nav-title"> <a href="/home" class="link-content">BLOG</a></h3>
-
-        <div class="d-flex">
-          <a class="nav-link" href="/home">
-            <span class="material-symbols-outlined">home</span>
-          </a>
-          <a class="nav-link" href="/user/<%= username %>">
-            <span class="material-symbols-outlined">person</span>
-          </a>
-          <a class="nav-link" href="/explore">
-            <span class="material-symbols-outlined">search</span>
-          </a>
-        </div>
-      </div>
-    </nav>
+    <%- include('partials/navbar'); -%>
 
     <div class="container mt-2 mb-4 col-md-6">
       <div class="h-100 p-5 pb-2 bg-light border rounded-3 content">
