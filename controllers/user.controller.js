@@ -56,7 +56,7 @@ const updateFollow = function (req, res) {
     if (!token) {
         return res.redirect('/user/login');
     }
-    
+
     const username = req.body.name;
     const profile = req.body.profile;
     const follow = req.body.follow;
@@ -68,10 +68,15 @@ const updateFollow = function (req, res) {
 
 }
 
+const getSettings = function (req, res) {
+    res.send("settings");
+}
+
 module.exports = {
     saveUser,
     getLoginPage,
     login,
     loadProfile,
-    updateFollow
+    updateFollow,
+    getSettings
 };

@@ -96,6 +96,12 @@
         <%});%>
       </div>
     </div>
+
+    <% if (profile.name===user.name) { %>
+    <div class="container mt-2 mb-4 col-md-6">
+      <a href="/user/settings" class="btn btn-light">Settings</a>
+    </div>
+    <% } %>
   </div>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
   <script src="/scripts/script.js" charset="utf-8"></script>

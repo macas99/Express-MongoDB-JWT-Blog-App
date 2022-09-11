@@ -12,6 +12,9 @@ router.route('/login')
 router.route('/signup')
     .post(userController.saveUser);
 
+router.route('/settings')
+    .get(userController.getSettings);
+
 router.route('/:user')
     .get(userController.loadProfile);
 
