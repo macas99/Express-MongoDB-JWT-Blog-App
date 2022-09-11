@@ -57,6 +57,11 @@ const deletePost = async function (id) {
     return await Post.deleteOne({ _id: id });
 }
 
+//return all posts with titles that include query
+const searchPostLike = async function (query) {
+    return await Post.find({ title: { $regex: query, $options: 'i' } });
+}
+
 module.exports = {
     getPostsByFollowing,
     updateLikes,
@@ -64,5 +69,6 @@ module.exports = {
     getPostsByAuthor,
     savePost,
     updatePost,
-    deletePost
+    deletePost,
+    searchPostLike
 };
