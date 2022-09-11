@@ -9,6 +9,13 @@ router.route('/login')
 router.route('/login')
     .post(userController.login);
 
+router.route('/logout')
+    .post(userController.logout);
+
+
+router.route('/delete')
+    .post(userController.deleteUser);
+
 router.route('/signup')
     .post(userController.saveUser);
 

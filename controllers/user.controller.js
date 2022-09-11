@@ -1,5 +1,6 @@
 const userService = require('../services/user.service');
 const postService = require('../services/post.service');
+const { post } = require('request');
 
 const saveUser = function (req, res) {
     userService.saveUser(req.body.username, req.body.email, req.body.password).then((token) => {
@@ -69,7 +70,43 @@ const updateFollow = function (req, res) {
 }
 
 const getSettings = function (req, res) {
-    res.send("settings");
+    const token = req.cookies.token;
+    if (!token) {
+        return res.redirect('/user/login');
+    }
+
+    userService.getUserByToken(token).then((user) => {
+        res.render('settings', { username: user.name });
+    }).catch(() => {
+        res.redirect('/home');
+    })
+}
+
+const logout = function (req, res) {
+    res.clearCookie("token");
+    return res.redirect('/user/login');
+}
+
+const deleteUser = function (req, res) {
+    const token = req.cookies.token;
+    if (!token) {
+        return res.redirect('/user/login');
+    }
+
+    userService.getUserByToken(token).then((user) => {
+        postService.unlikeAll(user.name).then(() => {
+            userService.unfollowAll(user.name).then(() => {
+                postService.deleteAllUser(user.name).then(() => {
+                    userService.deleteUser(user.name).then(() => {
+                        res.clearCookie("token");
+                        return res.redirect('/user/login');
+                    })
+                })
+            })
+        })
+    }).catch(() => {
+        res.redirect('/home');
+    })
 }
 
 module.exports = {
@@ -78,5 +115,7 @@ module.exports = {
     login,
     loadProfile,
     updateFollow,
-    getSettings
+    getSettings,
+    logout,
+    deleteUser
 };

@@ -33,11 +33,11 @@ const updateLikes = async function (user, post, remove) {
 }
 
 const addLike = async function (user, post) {
-    return await Post.updateOne({ _id: post }, { $push: { likedBy: user }, $inc: { likes: 1 } });
+    return await Post.updateOne({ _id: post }, { $push: { likedBy: user } });
 }
 
 const removeLike = async function (user, post) {
-    return await Post.updateOne({ _id: post }, { $pull: { likedBy: user }, $inc: { likes: -1 } });
+    return await Post.updateOne({ _id: post }, { $pull: { likedBy: user } });
 }
 
 const savePost = async function (title, body, author) {
@@ -62,6 +62,18 @@ const searchPostLike = async function (query) {
     return await Post.find({ title: { $regex: query, $options: 'i' } });
 }
 
+
+//remove all likes - used when an account is deleted
+const unlikeAll = async function (user) {
+    return await Post.updateMany({}, { $pull: { likedBy: user }});
+}
+
+
+//delete all posts made by user - used when an account is deleted
+const deleteAllUser = async function (user) {
+    return await Post.deleteMany({ author: user });
+}
+
 module.exports = {
     getPostsByFollowing,
     updateLikes,
@@ -70,5 +82,7 @@ module.exports = {
     savePost,
     updatePost,
     deletePost,
-    searchPostLike
+    searchPostLike,
+    unlikeAll,
+    deleteAllUser
 };

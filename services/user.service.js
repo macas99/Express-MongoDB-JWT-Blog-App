@@ -73,6 +73,15 @@ const searchUser = async function (query) {
     return await User.find({ name: { $regex: query, $options: 'i' } });
 }
 
+//unfollow all - used when account is deleted
+const unfollowAll = async function (user) {
+    return await User.updateMany({}, { $pull: { followers: user } });
+}
+
+const deleteUser = async function (user) {
+    return await User.deleteOne({ name: user });
+}
+
 module.exports = {
     saveUser,
     getUserByToken,
@@ -81,5 +90,7 @@ module.exports = {
     createUserToken,
     getUserByName,
     updateFollow,
-    searchUser
+    searchUser,
+    unfollowAll,
+    deleteUser
 };
