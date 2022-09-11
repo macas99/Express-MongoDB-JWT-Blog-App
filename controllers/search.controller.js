@@ -15,14 +15,17 @@ const getSearch = function (req, res) {
 const search = function (req, res) {
     const input = req.body.input;
     if (input) {
-        userService.getUserByName(input).then((user) => {
+        userService.searchUser(input).then((users) => {
             postService.searchPostLike(input).then((posts) => {
                 let html = "";
-                if (user) {
-                    const div = "<h5>User</h5><div class='container mb-2 post-prev'>";
-                    const a = "<a class='link-content' href='/user/" + user.name + "'>";
-                    const end = user.name + "</a></div>";
-                    html += div + a + end;
+                if (users.length > 0) {
+                    html += "<h5>Accounts</h5>";
+                    users.forEach((user) => {
+                        const div = "<div class='container mb-2 post-prev'>";
+                        const a = "<a class='link-content' href='/user/" + user.name + "'>";
+                        const end = user.name + "</a></div>";
+                        html += div + a + end;
+                    });
                 }
                 if (posts.length > 0) {
                     html += "<h5>Posts</h5>";

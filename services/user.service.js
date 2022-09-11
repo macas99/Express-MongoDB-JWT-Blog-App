@@ -68,6 +68,11 @@ const deleteFromFollowing = async function (user, profile) {
     return await User.updateOne({ name: user }, { $pull: { following: profile } });
 }
 
+//find users whose username includes query
+const searchUser = async function (query) {
+    return await User.find({ name: { $regex: query, $options: 'i' } });
+}
+
 module.exports = {
     saveUser,
     getUserByToken,
@@ -75,5 +80,6 @@ module.exports = {
     findAll,
     createUserToken,
     getUserByName,
-    updateFollow
+    updateFollow,
+    searchUser
 };
