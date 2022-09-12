@@ -1,7 +1,7 @@
 const Bcrypt = require('bcryptjs');
 const User = require('../models/User');
 const JsonWebToken = require("jsonwebtoken");
-const { JWT_CODE } = require('../config/config');
+const { JWT_CODE, TOKEN_LIFETIME } = require('../config/config');
 
 
 const saveUser = async function (name, email, password) {
@@ -12,14 +12,18 @@ const saveUser = async function (name, email, password) {
     });
 
     const savedUser = await user.save();
-    const token = JsonWebToken.sign({ username: savedUser.name }, JWT_CODE);
+    const token = JsonWebToken.sign({ username: savedUser.name }, JWT_CODE, { expiresIn: TOKEN_LIFETIME });
     return token;
 }
 
 const getUserByToken = async function (token) {
-    const decoded = JSON.stringify(JsonWebToken.verify(token, JWT_CODE));
-    const username = JSON.parse(decoded).username;
-    return await User.findOne({ name: username });
+    try {
+        const decoded = JSON.stringify(JsonWebToken.verify(token, JWT_CODE));
+        const username = JSON.parse(decoded).username;
+        return await User.findOne({ name: username });
+    } catch (err) {
+        throw err;
+    }
 }
 
 const verifyPassword = async function (username, password) {
@@ -32,7 +36,7 @@ const findAll = async function () {
 }
 
 const createUserToken = function (username) {
-    const token = JsonWebToken.sign({ username: username }, JWT_CODE);
+    const token = JsonWebToken.sign({ username: username }, JWT_CODE, { expiresIn: TOKEN_LIFETIME });
     return token;
 }
 

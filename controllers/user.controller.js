@@ -1,10 +1,11 @@
 const userService = require('../services/user.service');
 const postService = require('../services/post.service');
 const { post } = require('request');
+const { COOKIE_LIFETIME } = require('../config/config');
 
 const saveUser = function (req, res) {
     userService.saveUser(req.body.username, req.body.email, req.body.password).then((token) => {
-        res.cookie("token", token, { expires: new Date(Date.now() + 900000), httpOnly: true });
+        res.cookie("token", token, { expires: new Date(Date.now() + COOKIE_LIFETIME), httpOnly: true });
         res.redirect('/home');
     }).catch((error) => {
         console.log(error);
@@ -22,7 +23,7 @@ const login = function (req, res) {
     userService.verifyPassword(username, password).then((user) => {
         if (user) {
             const token = userService.createUserToken(username);
-            res.cookie("token", token, { expires: new Date(Date.now() + 900000), httpOnly: true });
+            res.cookie("token", token, { expires: new Date(Date.now() + COOKIE_LIFETIME), httpOnly: true });
             res.redirect('/home');
         } else {
             res.redirect('/user/login');
@@ -42,6 +43,8 @@ const loadProfile = function (req, res) {
             if (token) {
                 userService.getUserByToken(token).then((user) => {
                     res.render('profile', { profile: profile, posts: posts, user: user });
+                }).catch(() => {
+                    res.render('profile', { profile: profile, posts: posts, user: false });
                 });
             } else {
                 res.render('profile', { profile: profile, posts: posts, user: false });
@@ -78,7 +81,7 @@ const getSettings = function (req, res) {
     userService.getUserByToken(token).then((user) => {
         res.render('settings', { username: user.name });
     }).catch(() => {
-        res.redirect('/home');
+        res.redirect('/user/login');
     })
 }
 
@@ -105,7 +108,7 @@ const deleteUser = function (req, res) {
             })
         })
     }).catch(() => {
-        res.redirect('/home');
+        res.redirect('/user/login');
     })
 }
 

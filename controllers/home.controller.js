@@ -1,5 +1,6 @@
 const userService = require('../services/user.service');
 const postService = require('../services/post.service');
+const { COOKIE_LIFETIME } = require('../config/config');
 
 const getSignUpPage = function (req, res) {
     res.render('signup');
@@ -13,11 +14,14 @@ const getHomePage = function (req, res) {
 
     userService.getUserByToken(token).then((user) => {
         postService.getPostsByFollowing(user.following).then((posts) => {
+            const token = userService.createUserToken(user.name);
+            res.cookie("token", token, { expires: new Date(Date.now() + COOKIE_LIFETIME), httpOnly: true });
             res.render('home', { username: user.name, posts: posts });
         }).catch((err) => {
-            console.log(err);
+            res.redirect('user/login');
         });
-        // res.render('home', {username: user.name});
+    }).catch((err) => {
+        res.redirect('user/login');
     });
 
 }

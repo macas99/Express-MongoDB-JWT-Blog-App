@@ -9,6 +9,8 @@ const getSearch = function (req, res) {
 
     userService.getUserByToken(token).then((user) => {
         res.render('search', { username: user.name });
+    }).catch(() => {
+        res.redirect('/user/login');
     });
 }
 

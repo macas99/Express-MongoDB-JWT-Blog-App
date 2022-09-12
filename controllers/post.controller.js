@@ -14,7 +14,7 @@ const getPost = function (req, res) {
             res.render('post', { post: post, username: user.name });
         });
     }).catch((err) => {
-        res.redirect('/home');
+        res.redirect('/user/login');
     })
 
 }
@@ -40,7 +40,7 @@ const getCreatePost = function (req, res) {
     userService.getUserByToken(token).then((user) => {
         res.render('create', { username: user.name });
     }).catch(() => {
-        res.redirect('/home');
+        res.redirect('/user/login');
     })
 }
 
@@ -65,11 +65,11 @@ const createPost = function (req, res) {
 
 const getEdit = function (req, res) {
     const token = req.cookies.token;
-    const postId = req.params.postId;
-
     if (!token) {
         return res.redirect('/user/login');
     }
+
+    const postId = req.params.postId;
 
     userService.getUserByToken(token).then((user) => {
         postService.getById(postId).then((post) => {
@@ -80,13 +80,12 @@ const getEdit = function (req, res) {
             }
         });
     }).catch(() => {
-        res.redirect('/home');
+        res.redirect('/user/login');
     })
 }
 
 const updatePost = function (req, res) {
     const token = req.cookies.token;
-
     if (!token) {
         return res.redirect('/user/login');
     }
@@ -105,13 +104,12 @@ const updatePost = function (req, res) {
             res.redirect(403, '/home');
         }
     }).catch(() => {
-        res.redirect(500, '/home');
+        res.redirect('/user/login');
     })
 }
 
 const deletePost = function (req, res) {
     const token = req.cookies.token;
-
     if (!token) {
         return res.redirect('/user/login');
     }
@@ -128,7 +126,7 @@ const deletePost = function (req, res) {
             res.redirect(403, '/home');
         }
     }).catch(() => {
-        res.redirect(500, '/home');
+        res.redirect('/user/login');
     })
 }
 
