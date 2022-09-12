@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const { users } = require('../db/data');
 
 const Schema = mongoose.Schema;
 
@@ -10,4 +11,15 @@ const userSchema = new Schema({
   following: [String]
 })
 
+//insert dummy data on app start
+async function mySeeder() {
+  const User = mongoose.model('user', userSchema);
+  const data = await User.find({}).exec();
+  if (data.length !== 0) {
+    return;
+  }
+  await User.collection.insertMany(users);
+}
+
+mySeeder();
 module.exports = mongoose.model('user', userSchema);

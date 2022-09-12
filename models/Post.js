@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const { posts } = require('../db/data');
 
 const Schema = mongoose.Schema;
 
@@ -32,4 +33,16 @@ const postSchema = new Schema({
     likedBy: [String]
 })
 
+
+//insert dummy data on app start
+async function mySeeder() {
+    const Post = mongoose.model('post', postSchema);
+    const data = await Post.find({}).exec();
+    if (data.length !== 0) {
+        return;
+    }
+    await Post.collection.insertMany(posts);
+}
+
+mySeeder();
 module.exports = mongoose.model('post', postSchema);

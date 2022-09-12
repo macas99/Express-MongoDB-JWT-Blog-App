@@ -12,6 +12,7 @@ a {
 
 .post-body {
   white-space: pre-line;
+  word-break: break-word;
 }
 
 .home,
