@@ -8,7 +8,7 @@ const app = express();
 
 app.set('view engine', 'ejs');
 app.use(cookieParser());
-app.use(express.static("public"));
+app.use(express.static('public'));
 app.use(bodyParser.urlencoded({ extended: true }));
 
 const db = require('./db/db');
@@ -16,6 +16,7 @@ const db = require('./db/db');
 const routes = require('./routes/index.route');
 app.use(routes);
 
-app.listen(3000, function () {
-    console.log("Server is running on port 3000");
+const { port } = require('./config/config');
+app.listen(port, function () {
+    console.log(`Server is running on port ${port}`);
 });

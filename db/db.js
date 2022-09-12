@@ -1,7 +1,8 @@
 const mongoose = require("mongoose");
+const {db} = require('../config/config');
 
 mongoose.Promise = global.Promise;
-mongoose.connect("mongodb://localhost:27017/blogDB");
+mongoose.connect(db);
 
 mongoose.connection
     .once('open', res => console.log('Connected to the database'))
