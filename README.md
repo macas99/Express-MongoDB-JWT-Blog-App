@@ -1,4 +1,4 @@
-# blog-website
+# Express-MongoDB-JWT-Blog-App
 
 Blog app using NodeJs, Express, Ejs, jQuery and MongoDB. Bootstrap 5 for styling.
 
