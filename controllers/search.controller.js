@@ -19,26 +19,7 @@ const search = function (req, res) {
     if (input) {
         userService.searchUser(input).then((users) => {
             postService.searchPostLike(input).then((posts) => {
-                let html = "";
-                if (users.length > 0) {
-                    html += "<h5>Accounts</h5>";
-                    users.forEach((user) => {
-                        const div = "<div class='container mb-2 post-prev'>";
-                        const a = "<a class='link-content' href='/user/" + user.name + "'>";
-                        const end = user.name + "</a></div>";
-                        html += div + a + end;
-                    });
-                }
-                if (posts.length > 0) {
-                    html += "<h5>Posts</h5>";
-                    posts.forEach((post) => {
-                        const div = "<div class='container mb-2 post-prev'>";
-                        const a = "<a class='link-content' href='/posts/" + post._id + "'>"
-                        const end = post.title + "</a></div>";
-                        html += div + a + end;
-                    });
-                }
-                return html === "" ? res.send("No result") : res.send(html);
+                return res.send(JSON.stringify({ users: users, posts: posts }));
             }).catch(() => {
                 res.send("error");
             });
