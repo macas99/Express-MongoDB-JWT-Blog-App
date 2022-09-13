@@ -7,4 +7,4 @@ Authentication is done by storing a JWT token in a cookie. Tokens are renewed ev
 ```
 node index.js
 ```
-to start (after preparing MongoDB and installing npm modules).
+to start (after preparing MongoDB and installing npm modules). Some dummy data will be loaded into the database on start, see /db/data.js for user-password info.
