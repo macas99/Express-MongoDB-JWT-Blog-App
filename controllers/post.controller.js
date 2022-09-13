@@ -1,6 +1,7 @@
 const postService = require('../services/post.service');
 const userService = require('../services/user.service');
 
+//get post by id and display it (if user logged in)
 const getPost = function (req, res) {
     const token = req.cookies.token;
     const postId = req.params.postId;
@@ -19,7 +20,13 @@ const getPost = function (req, res) {
 
 }
 
+//update likes on a post, remove = true => remove like 
 const updateLikes = function (req, res) {
+    const token = req.cookies.token;
+    if (!token) {
+        return res.sendStatus(401);
+    }
+
     const username = req.body.name;
     const post = req.body.post;
     const remove = req.body.removeLike;
@@ -31,6 +38,7 @@ const updateLikes = function (req, res) {
     });
 }
 
+//render create.ejs if user is logged in
 const getCreatePost = function (req, res) {
     const token = req.cookies.token;
     if (!token) {
@@ -44,6 +52,7 @@ const getCreatePost = function (req, res) {
     })
 }
 
+//save post to database and redirect to new post
 const createPost = function (req, res) {
     const token = req.cookies.token;
     if (!token) {
@@ -63,6 +72,7 @@ const createPost = function (req, res) {
     });
 }
 
+//render edit.ejs (edit post page) if user is logged in
 const getEdit = function (req, res) {
     const token = req.cookies.token;
     if (!token) {
@@ -84,6 +94,7 @@ const getEdit = function (req, res) {
     })
 }
 
+//save changes to a post (if user is original author of post)
 const updatePost = function (req, res) {
     const token = req.cookies.token;
     if (!token) {
@@ -108,6 +119,7 @@ const updatePost = function (req, res) {
     })
 }
 
+//delete post (if user is original author of post)
 const deletePost = function (req, res) {
     const token = req.cookies.token;
     if (!token) {

@@ -1,6 +1,7 @@
 const postService = require('../services/post.service');
 const userService = require('../services/user.service');
 
+//render search.ejs (if user logged in)
 const getSearch = function (req, res) {
     const token = req.cookies.token;
     if (!token) {
@@ -14,6 +15,7 @@ const getSearch = function (req, res) {
     });
 }
 
+//query db with user input and respond with found data
 const search = function (req, res) {
     const input = req.body.input;
     if (input) {

@@ -3,6 +3,7 @@ const postService = require('../services/post.service');
 const { post } = require('request');
 const { COOKIE_LIFETIME } = require('../config/config');
 
+//save user to DB and generate cookie with jwt token for authentication
 const saveUser = function (req, res) {
     userService.saveUser(req.body.username, req.body.email, req.body.password).then((token) => {
         res.cookie("token", token, { expires: new Date(Date.now() + COOKIE_LIFETIME), httpOnly: true });
@@ -13,10 +14,12 @@ const saveUser = function (req, res) {
     });
 }
 
+//render login.ejs
 const getLoginPage = function (req, res) {
     res.render('login');
 }
 
+//render home.ejs, generate and save new token to cookie (if credentials correct)
 const login = function (req, res) {
     const username = req.body.username;
     const password = req.body.password;
@@ -34,6 +37,7 @@ const login = function (req, res) {
     });
 }
 
+//get user by username, get all posts authored by user and render profile.ejs
 const loadProfile = function (req, res) {
     const token = req.cookies.token;
 
@@ -55,6 +59,8 @@ const loadProfile = function (req, res) {
     })
 }
 
+//update a users follower/following list 
+//follow = true => add user to follow/following list
 const updateFollow = function (req, res) {
     const token = req.cookies.token;
     if (!token) {
@@ -72,6 +78,7 @@ const updateFollow = function (req, res) {
 
 }
 
+//render settings.ejs (if user logged in)
 const getSettings = function (req, res) {
     const token = req.cookies.token;
     if (!token) {
@@ -85,11 +92,15 @@ const getSettings = function (req, res) {
     })
 }
 
+//log user out by deleting token from cookie
 const logout = function (req, res) {
     res.clearCookie("token");
     return res.redirect('/user/login');
 }
 
+//get user, remove all likes made by user
+//unfollow all followed accounts, delete all posts by user,
+//delete user from DB and delete token from cookie 
 const deleteUser = function (req, res) {
     const token = req.cookies.token;
     if (!token) {

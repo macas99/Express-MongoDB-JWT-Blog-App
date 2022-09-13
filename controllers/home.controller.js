@@ -2,10 +2,12 @@ const userService = require('../services/user.service');
 const postService = require('../services/post.service');
 const { COOKIE_LIFETIME } = require('../config/config');
 
+//render signup.ejs
 const getSignUpPage = function (req, res) {
     res.render('signup');
 }
 
+//get user by token, get all posts of accounts followed by user and display them newest -> oldest
 const getHomePage = function (req, res) {
     const token = req.cookies.token;
     if (!token) {
